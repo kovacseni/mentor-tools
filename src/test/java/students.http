@@ -1,0 +1,171 @@
+###
+GET http://localhost:8080/api/students
+Accept: application/json
+
+###
+GET http://localhost:8080/api/students/2
+Accept: application/json
+
+###
+POST http://localhost:8080/api/students
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Kiss József",
+  "email": "kissj@gmail.com",
+  "gitHub": "kissj"
+}
+
+###
+PUT http://localhost:8080/api/students/3
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Kiss József",
+  "email": "kissj@yahoo.com",
+  "gitHub": "kissj",
+  "comment": "Rendesen halad az ütemezett anyaggal."
+}
+
+###
+DELETE http://localhost:8080/api/students/5
+
+### Validation
+POST http://localhost:8080/api/students
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": null,
+  "email": "kissj@gmail.com",
+  "gitHub": "kissj"
+}
+
+### Validation
+POST http://localhost:8080/api/students
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "   ",
+  "email": "kissj@gmail.com",
+  "gitHub": "kissj"
+}
+
+### Validation
+POST http://localhost:8080/api/students
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Kiss József",
+  "email": null,
+  "gitHub": "kissj"
+}
+
+### Validation
+POST http://localhost:8080/api/students
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Kiss József",
+  "email": "  ",
+  "gitHub": "kissj"
+}
+
+### Validation
+POST http://localhost:8080/api/students
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Kiss József",
+  "email": "kissj@gmail.com",
+  "gitHub": null
+}
+
+### Validation
+POST http://localhost:8080/api/students
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Kiss József",
+  "email": "kissj@gmail.com",
+  "gitHub": "  "
+}
+
+### Validation
+PUT http://localhost:8080/api/students/3
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": null,
+  "email": "kissj@yahoo.com",
+  "gitHub": "kissj",
+  "comment": "Rendesen halad az ütemezett anyaggal."
+}
+
+### Validation
+PUT http://localhost:8080/api/students/3
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "  ",
+  "email": "kissj@yahoo.com",
+  "gitHub": "kissj",
+  "comment": "Rendesen halad az ütemezett anyaggal."
+}
+
+### Validation
+PUT http://localhost:8080/api/students/3
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Kiss József",
+  "email": null,
+  "gitHub": "kissj",
+  "comment": "Rendesen halad az ütemezett anyaggal."
+}
+
+### Validation
+PUT http://localhost:8080/api/students/3
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Kiss József",
+  "email": "  ",
+  "gitHub": "kissj",
+  "comment": "Rendesen halad az ütemezett anyaggal."
+}
+
+### Validation
+PUT http://localhost:8080/api/students/3
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Kiss József",
+  "email": "kissj@yahoo.com",
+  "gitHub": null,
+  "comment": "Rendesen halad az ütemezett anyaggal."
+}
+
+### Validation
+PUT http://localhost:8080/api/students/3
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Kiss József",
+  "email": "kissj@yahoo.com",
+  "gitHub": "   ",
+  "comment": "Rendesen halad az ütemezett anyaggal."
+}

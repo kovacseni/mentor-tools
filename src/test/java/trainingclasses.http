@@ -1,0 +1,71 @@
+###
+GET http://localhost:8080/api/trainingclass
+Accept: application/json
+
+###
+GET http://localhost:8080/api/trainingclass/2
+Accept: application/json
+
+###
+POST http://localhost:8080/api/trainingclass
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Struktúraváltó haladó",
+  "startDate": "2021-06-07"
+}
+
+###
+PUT http://localhost:8080/api/trainingclass/3
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Struktúraváltó haladó Java",
+  "startDate": "2021-06-07",
+  "endDate": "2021-08-09"
+}
+
+###
+DELETE http://localhost:8080/api/trainingclass/5
+
+### Validation
+POST http://localhost:8080/api/trainingclass
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": null,
+  "startDate": "2021-06-07"
+}
+
+### Validation
+POST http://localhost:8080/api/trainingclass
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "  ",
+  "startDate": "2021-06-07"
+}
+
+### Validation
+POST http://localhost:8080/api/trainingclass
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Struktúraváltó haladó",
+  "startDate": null
+}
+
+### Validation
+POST http://localhost:8080/api/trainingclass
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Struktúraváltó haladó",
+  "startDate": ""
+}

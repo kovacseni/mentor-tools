@@ -1,4 +1,4 @@
-package mentor.entity;
+package mentor.trainingclass;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,13 +11,11 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateTrainingClassCommand {
+public class CreateTrainingClassCommand {
 
     @NotNull
     @NotBlank
     private String name;
 
     private LocalDate startDate;
-
-    private LocalDate endDate;
 }

@@ -1,10 +1,6 @@
-package mentor.controller;
+package mentor.trainingclass;
 
 import lombok.AllArgsConstructor;
-import mentor.entity.CreateTrainingClassCommand;
-import mentor.entity.TrainingClassDto;
-import mentor.entity.UpdateTrainingClassCommand;
-import mentor.service.TrainingClassService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

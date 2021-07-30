@@ -1,8 +1,5 @@
-package mentor.controller;
+package mentor.student;
 
-import mentor.entity.CreateStudentCommand;
-import mentor.entity.StudentDto;
-import mentor.entity.UpdateStudentCommand;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

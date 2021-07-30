@@ -1,6 +1,5 @@
-package mentor.repository;
+package mentor.trainingclass;
 
-import mentor.entity.TrainingClass;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TrainingClassRepository extends JpaRepository<TrainingClass, Long> {

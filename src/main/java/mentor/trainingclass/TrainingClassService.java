@@ -1,11 +1,6 @@
-package mentor.service;
+package mentor.trainingclass;
 
 import lombok.AllArgsConstructor;
-import mentor.entity.CreateTrainingClassCommand;
-import mentor.entity.TrainingClass;
-import mentor.entity.TrainingClassDto;
-import mentor.entity.UpdateTrainingClassCommand;
-import mentor.repository.TrainingClassRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;

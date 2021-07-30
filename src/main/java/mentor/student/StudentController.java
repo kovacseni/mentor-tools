@@ -1,10 +1,6 @@
-package mentor.controller;
+package mentor.student;
 
 import lombok.AllArgsConstructor;
-import mentor.entity.CreateStudentCommand;
-import mentor.entity.StudentDto;
-import mentor.entity.UpdateStudentCommand;
-import mentor.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

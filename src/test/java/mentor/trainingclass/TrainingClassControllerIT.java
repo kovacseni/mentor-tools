@@ -1,8 +1,8 @@
-package mentor.controller;
+package mentor.trainingclass;
 
-import mentor.entity.CreateTrainingClassCommand;
-import mentor.entity.TrainingClassDto;
-import mentor.entity.UpdateTrainingClassCommand;
+import mentor.trainingclass.CreateTrainingClassCommand;
+import mentor.trainingclass.TrainingClassDto;
+import mentor.trainingclass.UpdateTrainingClassCommand;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

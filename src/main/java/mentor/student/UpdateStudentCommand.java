@@ -1,4 +1,4 @@
-package mentor.entity;
+package mentor.student;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

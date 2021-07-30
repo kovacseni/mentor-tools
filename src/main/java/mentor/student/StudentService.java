@@ -1,11 +1,6 @@
-package mentor.service;
+package mentor.student;
 
 import lombok.AllArgsConstructor;
-import mentor.entity.CreateStudentCommand;
-import mentor.entity.Student;
-import mentor.entity.StudentDto;
-import mentor.entity.UpdateStudentCommand;
-import mentor.repository.StudentRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;

@@ -6,12 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.test.context.jdbc.Sql;
+import org.zalando.problem.Problem;
+import org.zalando.problem.Status;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -32,7 +36,7 @@ public class StudentControllerIT {
                 new CreateStudentCommand("Nagy Béla", "nagyb@gmail.com", "nagyb"),
                 StudentDto.class);
         student = template.postForObject("/api/students",
-                new CreateStudentCommand("Szép Virág", "szepv@gmail.com", "szepv"),
+                new CreateStudentCommand("Szép Virág", "szepv@gmail.com"),
                 StudentDto.class);
     }
 
@@ -42,7 +46,8 @@ public class StudentControllerIT {
         List<StudentDto> expected = template.exchange("/api/students",
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<StudentDto>>() {})
+                new ParameterizedTypeReference<List<StudentDto>>() {
+                })
                 .getBody();
 
         assertThat(expected)
@@ -63,7 +68,6 @@ public class StudentControllerIT {
 
         assertEquals("Szép Virág", expected.getName());
         assertEquals("szepv@gmail.com", expected.getEmail());
-        assertEquals("szepv", expected.getGitHub());
     }
 
     @Test
@@ -80,10 +84,11 @@ public class StudentControllerIT {
                 StudentDto.class)
                 .getBody();
 
-        assertEquals("Szép Virág", expected.getName());
-        assertEquals("szepv@yahoo.com", expected.getEmail());
-        assertEquals("szepv", expected.getGitHub());
-        assertEquals("Rendesen halad az ütemezett anyaggal.", expected.getComment());
+        assertAll(
+                () -> assertEquals("Szép Virág", expected.getName()),
+                () -> assertEquals("szepv@yahoo.com", expected.getEmail()),
+                () -> assertEquals("szepv", expected.getGitHub()),
+                () -> assertEquals("Rendesen halad az ütemezett anyaggal.", expected.getComment()));
     }
 
     @Test
@@ -96,12 +101,125 @@ public class StudentControllerIT {
         List<StudentDto> expected = template.exchange("/api/students",
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<StudentDto>>() {})
+                new ParameterizedTypeReference<List<StudentDto>>() {
+                })
                 .getBody();
 
         assertEquals(2, expected.size());
         assertThat(expected)
                 .extracting(StudentDto::getName)
                 .containsExactly("Kiss József", "Nagy Béla");
+    }
+
+    @Test
+    void testCreateStudentWithNullName() {
+
+        Problem result = template.postForObject(
+                "/api/students",
+                new CreateStudentCommand(null, "kissj@gmail.com", "kissj"),
+                Problem.class
+        );
+
+        assertEquals(Status.BAD_REQUEST, result.getStatus());
+    }
+
+    @Test
+    void testCreateStudentWithEmptyName() {
+
+        Problem result = template.postForObject(
+                "/api/students",
+                new CreateStudentCommand("  ", "kissj@gmail.com", "kissj"),
+                Problem.class
+        );
+
+        assertEquals(Status.BAD_REQUEST, result.getStatus());
+    }
+
+    @Test
+    void testCreateStudentWithNullEmail() {
+
+        Problem result = template.postForObject(
+                "/api/students",
+                new CreateStudentCommand("Kiss József", null, "kissj"),
+                Problem.class
+        );
+
+        assertEquals(Status.BAD_REQUEST, result.getStatus());
+    }
+
+    @Test
+    void testCreateStudentWithEmptyEmail() {
+
+        Problem result = template.postForObject(
+                "/api/students",
+                new CreateStudentCommand("Kiss József", "  ", "kissj"),
+                Problem.class
+        );
+
+        assertEquals(Status.BAD_REQUEST, result.getStatus());
+    }
+
+    @Test
+    void testUpdateStudentWithNullName() {
+
+        long id = student.getId();
+
+        Problem expected = template.exchange("/api/students/" + id,
+                HttpMethod.PUT,
+                new HttpEntity<>(new UpdateStudentCommand(null,
+                        "szepv@yahoo.com", "szepv",
+                        "Rendesen halad az ütemezett anyaggal.")),
+                Problem.class)
+                .getBody();
+
+        assertEquals(Status.BAD_REQUEST, expected.getStatus());
+    }
+
+    @Test
+    void testUpdateStudentWithEmptyName() {
+
+        long id = student.getId();
+
+        Problem expected = template.exchange("/api/students/" + id,
+                HttpMethod.PUT,
+                new HttpEntity<>(new UpdateStudentCommand(" ",
+                        "szepv@yahoo.com", "szepv",
+                        "Rendesen halad az ütemezett anyaggal.")),
+                Problem.class)
+                .getBody();
+
+        assertEquals(Status.BAD_REQUEST, expected.getStatus());
+    }
+
+    @Test
+    void testUpdateStudentWithNullEmail() {
+
+        long id = student.getId();
+
+        Problem expected = template.exchange("/api/students/" + id,
+                HttpMethod.PUT,
+                new HttpEntity<>(new UpdateStudentCommand("Szép Virág",
+                        null, "szepv",
+                        "Rendesen halad az ütemezett anyaggal.")),
+                Problem.class)
+                .getBody();
+
+        assertEquals(Status.BAD_REQUEST, expected.getStatus());
+    }
+
+    @Test
+    void testUpdateStudentWithEmptyEmail() {
+
+        long id = student.getId();
+
+        Problem expected = template.exchange("/api/students/" + id,
+                HttpMethod.PUT,
+                new HttpEntity<>(new UpdateStudentCommand("Szép Virág",
+                        " ", "szepv",
+                        "Rendesen halad az ütemezett anyaggal.")),
+                Problem.class)
+                .getBody();
+
+        assertEquals(Status.BAD_REQUEST, expected.getStatus());
     }
 }

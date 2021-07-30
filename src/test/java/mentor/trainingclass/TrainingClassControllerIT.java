@@ -139,8 +139,6 @@ public class TrainingClassControllerIT {
                 Problem.class)
                 .getBody();
 
-        System.out.println(expected.toString());
-
         assertEquals(Status.BAD_REQUEST, expected.getStatus());
     }
 }

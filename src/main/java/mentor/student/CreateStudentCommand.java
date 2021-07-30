@@ -20,7 +20,10 @@ public class CreateStudentCommand {
     @NotBlank
     private String email;
 
-    @NotNull
-    @NotBlank
     private String gitHub;
+
+    public CreateStudentCommand(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
 }

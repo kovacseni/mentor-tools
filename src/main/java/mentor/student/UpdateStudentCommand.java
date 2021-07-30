@@ -20,11 +20,14 @@ public class UpdateStudentCommand {
     @NotBlank
     private String email;
 
-    @NotNull
-    @NotBlank
     private String gitHub;
 
     private String comment;
+
+    public UpdateStudentCommand(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
 
     public UpdateStudentCommand(String name, String email, String gitHub) {
         this.name = name;

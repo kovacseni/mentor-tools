@@ -23,7 +23,7 @@ public class Student {
     @Column(nullable = false, length = 255)
     private String email;
 
-    @Column(name = "github_profile", nullable = false, length = 255)
+    @Column(name = "github_profile", length = 255)
     private String gitHub;
 
     private String comment;

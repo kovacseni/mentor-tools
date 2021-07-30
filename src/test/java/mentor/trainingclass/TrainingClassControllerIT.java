@@ -1,8 +1,5 @@
 package mentor.trainingclass;
 
-import mentor.trainingclass.CreateTrainingClassCommand;
-import mentor.trainingclass.TrainingClassDto;
-import mentor.trainingclass.UpdateTrainingClassCommand;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +8,9 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.zalando.problem.Problem;
+import org.zalando.problem.Status;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -75,7 +75,7 @@ public class TrainingClassControllerIT {
         long id = trainingClass.getId();
 
         template.put("/api/trainingclass/" + id, new UpdateTrainingClassCommand("Struktúraváltó haladó Java",
-                LocalDate.of(2021, 6, 7), LocalDate.of(2021, 8, 9)));
+                new StartEndDates(LocalDate.of(2021, 6, 7), LocalDate.of(2021, 8, 9))));
 
         TrainingClassDto expected = template.exchange("/api/trainingclass/" + id,
                 HttpMethod.GET,
@@ -106,5 +106,23 @@ public class TrainingClassControllerIT {
         assertThat(expected)
                 .extracting(TrainingClassDto::getName)
                 .containsExactly("Újratervezés 2.0", "Struktúraváltó alap");
+    }
+
+    @Test
+    void testCreateTrainingClassWithNullName() {
+        Problem expected = template.postForObject("/api/trainingclass",
+                new CreateTrainingClassCommand(null, LocalDate.of(2021, 9, 30)),
+                Problem.class);
+
+        assertEquals(Status.BAD_REQUEST, expected.getStatus());
+    }
+
+    @Test
+    void testCreateTrainingClassWithEmptyName() {
+        Problem expected = template.postForObject("/api/trainingclass",
+                new CreateTrainingClassCommand("  ", LocalDate.of(2021, 9, 30)),
+                Problem.class);
+
+        assertEquals(Status.BAD_REQUEST, expected.getStatus());
     }
 }

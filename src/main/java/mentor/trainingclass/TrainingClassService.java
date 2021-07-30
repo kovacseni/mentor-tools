@@ -44,8 +44,8 @@ public class TrainingClassService {
         TrainingClass trainingClass = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Training Class with id: " + id + "not found."));
         trainingClass.setName(command.getName());
-        trainingClass.setStartDate(command.getStartDate());
-        trainingClass.setEndDate(command.getEndDate());
+        trainingClass.setStartDate(command.getDates().getStartDate());
+        trainingClass.setEndDate(command.getDates().getEndDate());
 
         return modelMapper.map(trainingClass, TrainingClassDto.class);
     }

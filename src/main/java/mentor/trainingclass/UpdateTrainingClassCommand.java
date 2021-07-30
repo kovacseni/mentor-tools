@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -17,7 +16,6 @@ public class UpdateTrainingClassCommand {
     @NotBlank
     private String name;
 
-    private LocalDate startDate;
-
-    private LocalDate endDate;
+    @ValidDates
+    private StartEndDates dates;
 }

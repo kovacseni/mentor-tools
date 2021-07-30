@@ -30,7 +30,7 @@ Accept: application/json
 ###
 DELETE http://localhost:8080/api/trainingclass/5
 
-### Validation
+### Validation (elvárt válasz: a validáció miatt elbukik a TrainingClass létrehozása)
 POST http://localhost:8080/api/trainingclass
 Content-Type: application/json
 Accept: application/json
@@ -40,7 +40,7 @@ Accept: application/json
   "startDate": "2021-06-07"
 }
 
-### Validation
+### Validation (elvárt válasz: a validáció miatt elbukik a TrainingClass létrehozása)
 POST http://localhost:8080/api/trainingclass
 Content-Type: application/json
 Accept: application/json
@@ -50,7 +50,7 @@ Accept: application/json
   "startDate": "2021-06-07"
 }
 
-### Validation
+### Validation (elvárt válasz: létrejön a TrainingClass)
 POST http://localhost:8080/api/trainingclass
 Content-Type: application/json
 Accept: application/json
@@ -60,7 +60,7 @@ Accept: application/json
   "startDate": null
 }
 
-### Validation
+### Validation (elvárt válasz: létrejön a TrainingClass)
 POST http://localhost:8080/api/trainingclass
 Content-Type: application/json
 Accept: application/json
@@ -68,4 +68,17 @@ Accept: application/json
 {
   "name": "Struktúraváltó haladó",
   "startDate": ""
+}
+
+### Validation (elvárt válasz: a validáció miatt elbukik a TrainingClass módosítása)
+PUT http://localhost:8080/api/trainingclass/3
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Struktúraváltó haladó Java",
+  "dates": {
+    "startDate" : "2021-08-09",
+    "endDate": "2021-06-07"
+  }
 }

@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
 
@@ -122,6 +122,24 @@ public class TrainingClassControllerIT {
         Problem expected = template.postForObject("/api/trainingclass",
                 new CreateTrainingClassCommand("  ", LocalDate.of(2021, 9, 30)),
                 Problem.class);
+
+        assertEquals(Status.BAD_REQUEST, expected.getStatus());
+    }
+
+    @Test
+    void testUpdateTrainingClassWithInvalidEndDate() {
+
+        long id = trainingClass.getId();
+
+        Problem expected = template.exchange("/api/trainingclass/" + id,
+                HttpMethod.PUT,
+                new HttpEntity<>(new UpdateTrainingClassCommand("Struktúraváltó haladó Java",
+                        new StartEndDates(LocalDate.of(2021, 8, 9),
+                                LocalDate.of(2021, 6, 7)))),
+                Problem.class)
+                .getBody();
+
+        System.out.println(expected.toString());
 
         assertEquals(Status.BAD_REQUEST, expected.getStatus());
     }

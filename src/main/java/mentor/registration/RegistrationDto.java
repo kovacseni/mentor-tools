@@ -11,9 +11,8 @@ import mentor.trainingclass.TrainingClass;
 @AllArgsConstructor
 public class RegistrationDto {
 
+    private Long id;
     private TrainingClass trainingClass;
-
     private Student student;
-
     private RegistrationStatus status;
 }

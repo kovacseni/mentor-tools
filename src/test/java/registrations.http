@@ -1,4 +1,4 @@
-### (list all Registration)
+### (list all Registrations)
 GET http://localhost:8080/api/registrations
 Accept: application/json
 

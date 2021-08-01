@@ -1,4 +1,4 @@
-### (list all Student)
+### (list all Students)
 GET http://localhost:8080/api/students
 Accept: application/json
 

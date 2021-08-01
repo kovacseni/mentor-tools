@@ -1,4 +1,4 @@
-### (list all TrainingClass)
+### (list all TrainingClasses)
 GET http://localhost:8080/api/trainingclasses
 Accept: application/json
 
@@ -23,8 +23,10 @@ Accept: application/json
 
 {
   "name": "Struktúraváltó haladó Java",
-  "startDate": "2021-06-07",
-  "endDate": "2021-08-09"
+  "dates": {
+    "startDate": "2021-06-07",
+    "endDate": "2021-08-09"
+  }
 }
 
 ### (delete TrainingClass)

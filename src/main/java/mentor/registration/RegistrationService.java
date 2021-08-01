@@ -50,10 +50,8 @@ public class RegistrationService {
     }
 
     public RegistrationDto createRegistration(long studentId, CreateRegistrationCommand command) {
-        Student student = studentService.getRepository().findById(studentId)
-                .orElseThrow(() -> new IllegalArgumentException("Student with id: " + studentId + "not found."));
-        TrainingClass trainingClass = trainingClassService.getRepository().findById(command.getTrainingClassId())
-                .orElseThrow(() -> new IllegalArgumentException("Training Class with id: " + command.getTrainingClassId() + "not found."));
+        Student student = modelMapper.map(studentService.findStudentById(studentId), Student.class);
+        TrainingClass trainingClass = modelMapper.map(trainingClassService.findTrainingClassById(command.getTrainingClassId()), TrainingClass.class);
 
         Registration registration = new Registration(trainingClass, student, RegistrationStatus.ACTIVE);
         repository.save(registration);

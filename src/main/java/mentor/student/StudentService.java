@@ -1,7 +1,6 @@
 package mentor.student;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Data
 @AllArgsConstructor
 @Service
 public class StudentService {

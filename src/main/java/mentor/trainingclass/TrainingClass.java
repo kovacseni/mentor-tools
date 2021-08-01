@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Embeddable
+//@Embeddable
 @Table(name = "trainingclasses")
 public class TrainingClass {
 

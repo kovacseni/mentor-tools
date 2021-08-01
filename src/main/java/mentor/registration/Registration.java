@@ -1,4 +1,4 @@
-package mentor.registration;
+/*package mentor.registration;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,9 +20,11 @@ public class Registration {
     private Long id;
 
     @Embedded
+    @AttributeOverride(name = "id", column = @Column(name = "trainingclass_id"))
     private TrainingClass trainingClass;
 
     @Embedded
+    @AttributeOverride(name = "id", column = @Column(name = "student_id"))
     private Student student;
 
     @Enumerated(value = EnumType.STRING)
@@ -33,4 +35,4 @@ public class Registration {
         this.student = student;
         this.status = status;
     }
-}
+}*/

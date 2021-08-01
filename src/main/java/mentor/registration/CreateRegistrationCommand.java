@@ -3,8 +3,6 @@ package mentor.registration;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import mentor.student.Student;
-import mentor.trainingclass.TrainingClass;
 
 import javax.validation.constraints.NotNull;
 
@@ -13,9 +11,5 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class CreateRegistrationCommand {
 
-    @NotNull
-    private TrainingClass trainingClass;
-
-    @NotNull
-    private Student student;
+    private long trainingClassId;
 }

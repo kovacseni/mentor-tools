@@ -1,8 +1,13 @@
-package mentor.registration;
+/*package mentor.registration;
 
 import lombok.AllArgsConstructor;
+import mentor.student.Student;
+import mentor.student.StudentService;
+import mentor.trainingclass.TrainingClass;
+import mentor.trainingclass.TrainingClassService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -19,6 +24,12 @@ public class RegistrationService {
     private RegistrationRepository repository;
 
     private ModelMapper modelMapper;
+
+    @Autowired
+    private StudentService studentService;
+
+    @Autowired
+    private TrainingClassService trainingClassService;
 
     public List<RegistrationDto> listRegistrations(Optional<String> prefix, Optional<RegistrationStatus> status) {
         Type targetListType = new TypeToken<List<RegistrationDto>>(){}.getType();
@@ -38,8 +49,13 @@ public class RegistrationService {
         return modelMapper.map(registration, RegistrationDto.class);
     }
 
-    public RegistrationDto createRegistration(CreateRegistrationCommand command) {
-        Registration registration = new Registration(command.getTrainingClass(), command.getStudent(), RegistrationStatus.ACTIVE);
+    public RegistrationDto createRegistration(long studentId, CreateRegistrationCommand command) {
+        Student student = studentService.getRepository().findById(studentId)
+                .orElseThrow(() -> new IllegalArgumentException("Student with id: " + studentId + "not found."));
+        TrainingClass trainingClass = trainingClassService.getRepository().findById(command.getTrainingClassId())
+                .orElseThrow(() -> new IllegalArgumentException("Training Class with id: " + command.getTrainingClassId() + "not found."));
+
+        Registration registration = new Registration(trainingClass, student, RegistrationStatus.ACTIVE);
         repository.save(registration);
         return modelMapper.map(registration, RegistrationDto.class);
     }
@@ -102,4 +118,4 @@ public class RegistrationService {
     public void deleteRegistration(long id) {
         repository.deleteById(id);
     }
-}
+}*/

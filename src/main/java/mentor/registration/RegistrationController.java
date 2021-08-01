@@ -1,7 +1,6 @@
-package mentor.registration;
+/*package mentor.registration;
 
 import lombok.AllArgsConstructor;
-import mentor.student.Student;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +13,7 @@ import java.util.Optional;
 @RequestMapping
 public class RegistrationController {
 
-    private  RegistrationService service;
+    private RegistrationService service;
 
     @GetMapping("/api/registrations")
     public List<RegistrationDto> listRegistrations(@RequestParam Optional<String> prefix, @RequestParam Optional<RegistrationStatus> status) {
@@ -26,10 +25,10 @@ public class RegistrationController {
         return service.findRegistrationById(id);
     }
 
-    @PostMapping("/api/trainingclasses/{id}/registrations")
+    @PostMapping("/api/trainingclasses/{studentId}/registrations")
     @ResponseStatus(HttpStatus.CREATED)
-    public RegistrationDto createRegistration(@PathVariable("id") long id, @Valid @RequestBody CreateRegistrationCommand command) {
-        return service.createRegistration(command);
+    public RegistrationDto createRegistration(@PathVariable("studentId") long studentId, @Valid @RequestBody CreateRegistrationCommand command) {
+        return service.createRegistration(studentId, command);
     }
 
     @GetMapping("/api/trainingclasses/{id}/registrations")
@@ -52,4 +51,5 @@ public class RegistrationController {
     public void deleteRegistration(@PathVariable("id") long id) {
         service.deleteRegistration(id);
     }
-}
+}*/
+

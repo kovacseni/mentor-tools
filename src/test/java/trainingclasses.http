@@ -1,12 +1,12 @@
-###
+### (list all TrainingClass)
 GET http://localhost:8080/api/trainingclasses
 Accept: application/json
 
-###
+### (find TrainingClass by id)
 GET http://localhost:8080/api/trainingclasses/2
 Accept: application/json
 
-###
+### (create TrainingClass)
 POST http://localhost:8080/api/trainingclasses
 Content-Type: application/json
 Accept: application/json
@@ -16,7 +16,7 @@ Accept: application/json
   "startDate": "2021-06-07"
 }
 
-###
+### (update TrainingClass)
 PUT http://localhost:8080/api/trainingclasses/3
 Content-Type: application/json
 Accept: application/json
@@ -27,7 +27,7 @@ Accept: application/json
   "endDate": "2021-08-09"
 }
 
-###
+### (delete TrainingClass)
 DELETE http://localhost:8080/api/trainingclasses/5
 
 ### Validation (elvárt válasz: a validáció miatt elbukik a TrainingClass létrehozása)

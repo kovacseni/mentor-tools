@@ -1,0 +1,64 @@
+### (list all Syllabuses)
+GET http://localhost:8080/api/syllabuses
+Accept: application/json
+
+### (find Syllabus by id)
+GET http://localhost:8080/api/syllabuses/2
+Accept: application/json
+
+### (create Syllabus)
+POST http://localhost:8080/api/syllabuses
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Java SE"
+}
+
+### (update Syllabus)
+PUT http://localhost:8080/api/syllabuses/3
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Java SE alapok"
+}
+
+### (delete Syllabus)
+DELETE http://localhost:8080/api/syllabuses/5
+
+### Validation (elvárt válasz: a validáció miatt elbukik a Syllabus létrehozása)
+POST http://localhost:8080/api/syllabuses
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": null
+}
+
+### Validation (elvárt válasz: a validáció miatt elbukik a Syllabus létrehozása)
+POST http://localhost:8080/api/syllabuses
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "   "
+}
+
+### Validation (elvárt válasz: a validáció miatt elbukik a Syllabus módosítása)
+PUT http://localhost:8080/api/syllabuses/3
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": null
+}
+
+### Validation (elvárt válasz: a validáció miatt elbukik a Syllabus módosítása)
+PUT http://localhost:8080/api/syllabuses/3
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "  "
+}

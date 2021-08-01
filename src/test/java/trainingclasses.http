@@ -1,13 +1,13 @@
 ###
-GET http://localhost:8080/api/trainingclass
+GET http://localhost:8080/api/trainingclasses
 Accept: application/json
 
 ###
-GET http://localhost:8080/api/trainingclass/2
+GET http://localhost:8080/api/trainingclasses/2
 Accept: application/json
 
 ###
-POST http://localhost:8080/api/trainingclass
+POST http://localhost:8080/api/trainingclasses
 Content-Type: application/json
 Accept: application/json
 
@@ -17,7 +17,7 @@ Accept: application/json
 }
 
 ###
-PUT http://localhost:8080/api/trainingclass/3
+PUT http://localhost:8080/api/trainingclasses/3
 Content-Type: application/json
 Accept: application/json
 
@@ -28,10 +28,10 @@ Accept: application/json
 }
 
 ###
-DELETE http://localhost:8080/api/trainingclass/5
+DELETE http://localhost:8080/api/trainingclasses/5
 
 ### Validation (elvárt válasz: a validáció miatt elbukik a TrainingClass létrehozása)
-POST http://localhost:8080/api/trainingclass
+POST http://localhost:8080/api/trainingclasses
 Content-Type: application/json
 Accept: application/json
 
@@ -41,7 +41,7 @@ Accept: application/json
 }
 
 ### Validation (elvárt válasz: a validáció miatt elbukik a TrainingClass létrehozása)
-POST http://localhost:8080/api/trainingclass
+POST http://localhost:8080/api/trainingclasses
 Content-Type: application/json
 Accept: application/json
 
@@ -51,7 +51,7 @@ Accept: application/json
 }
 
 ### Validation (elvárt válasz: létrejön a TrainingClass)
-POST http://localhost:8080/api/trainingclass
+POST http://localhost:8080/api/trainingclasses
 Content-Type: application/json
 Accept: application/json
 
@@ -61,7 +61,7 @@ Accept: application/json
 }
 
 ### Validation (elvárt válasz: létrejön a TrainingClass)
-POST http://localhost:8080/api/trainingclass
+POST http://localhost:8080/api/trainingclasses
 Content-Type: application/json
 Accept: application/json
 
@@ -71,7 +71,7 @@ Accept: application/json
 }
 
 ### Validation (elvárt válasz: a validáció miatt elbukik a TrainingClass módosítása)
-PUT http://localhost:8080/api/trainingclass/3
+PUT http://localhost:8080/api/trainingclasses/3
 Content-Type: application/json
 Accept: application/json
 

@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/trainingclass")
+@RequestMapping("/api/trainingclasses")
 public class TrainingClassController {
 
     private TrainingClassService service;

@@ -1,4 +1,4 @@
-/*package mentor.registration;
+package mentor.registration;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -51,5 +51,5 @@ public class RegistrationController {
     public void deleteRegistration(@PathVariable("id") long id) {
         service.deleteRegistration(id);
     }
-}*/
+}
 

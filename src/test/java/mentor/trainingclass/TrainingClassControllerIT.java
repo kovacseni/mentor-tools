@@ -1,5 +1,8 @@
 package mentor.trainingclass;
 
+import mentor.syllabus.CreateSyllabusCommand;
+import mentor.syllabus.Syllabus;
+import mentor.syllabus.SyllabusDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Sql(statements = "delete from trainingclasses")
+@Sql(statements = "delete from syllabuses")
 public class TrainingClassControllerIT {
 
     TrainingClassDto trainingClass;
@@ -140,5 +144,19 @@ public class TrainingClassControllerIT {
                 .getBody();
 
         assertEquals(Status.BAD_REQUEST, expected.getStatus());
+    }
+
+    @Test
+    void testAddSyllabus() {
+
+        SyllabusDto syllabusDto = template.postForObject("/api/syllabuses", new CreateSyllabusCommand("Java SE"), SyllabusDto.class);
+
+        long syllabusId = syllabusDto.getId();
+        long id = trainingClass.getId();
+
+        TrainingClassDto expected = template.postForObject("/api/trainingclass/" + id + "/syllabuses",
+                new AddSyllabusCommand(syllabusId), TrainingClassDto.class);
+
+        assertEquals("Java SE", expected.getSyllabus().getName());
     }
 }

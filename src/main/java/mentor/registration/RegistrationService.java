@@ -1,4 +1,4 @@
-/*package mentor.registration;
+package mentor.registration;
 
 import lombok.AllArgsConstructor;
 import mentor.student.Student;
@@ -116,4 +116,4 @@ public class RegistrationService {
     public void deleteRegistration(long id) {
         repository.deleteById(id);
     }
-}*/
+}

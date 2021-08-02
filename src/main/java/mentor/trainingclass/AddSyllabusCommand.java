@@ -1,4 +1,4 @@
-package mentor.registration;
+package mentor.trainingclass;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,8 +9,8 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateRegistrationCommand {
+public class AddSyllabusCommand {
 
     @NotNull
-    private Long trainingClassId;
+    private Long syllabusId;
 }

@@ -41,4 +41,14 @@ public class TrainingClassController {
     public void deleteTrainingClass(@PathVariable("id") long id) {
         service.deleteTrainingClass(id);
     }
+
+    @PostMapping("/{id}/syllabuses")
+    public TrainingClassDto addSyllabus(@PathVariable("id") long id, @Valid @RequestBody AddSyllabusCommand command) {
+        return service.addSyllabus(id, command);
+    }
+
+    @PutMapping("/{id}/syllabuses")
+    public TrainingClassDto changeSyllabus(@PathVariable("id") long id, @Valid @RequestBody AddSyllabusCommand command) {
+        return service.addSyllabus(id, command);
+    }
 }

@@ -2,8 +2,11 @@ package mentor.trainingclass;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import mentor.syllabus.Syllabus;
+import mentor.syllabus.SyllabusService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -20,6 +23,9 @@ public class TrainingClassService {
     private ModelMapper modelMapper;
 
     private TrainingClassRepository repository;
+
+    @Autowired
+    private SyllabusService syllabusService;
 
     public List<TrainingClassDto> listTrainingClasses(Optional<String> prefix) {
         Type targetListType = new TypeToken<List<TrainingClassDto>>(){}.getType();
@@ -54,5 +60,16 @@ public class TrainingClassService {
 
     public void deleteTrainingClass(long id) {
         repository.deleteById(id);
+    }
+
+    @Transactional
+    public TrainingClassDto addSyllabus(long id, AddSyllabusCommand command) {
+        Syllabus syllabus = modelMapper.map(syllabusService.findSyllabusById(command.getSyllabusId()), Syllabus.class);
+        TrainingClass trainingClass = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Training Class with id: " + id + "not found."));
+        trainingClass.setSyllabus(syllabus);
+        syllabus.addTrainingClass(trainingClass);
+
+        return modelMapper.map(trainingClass, TrainingClassDto.class);
     }
 }

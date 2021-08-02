@@ -3,6 +3,7 @@ package mentor.trainingclass;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import mentor.syllabus.Syllabus;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,7 +12,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-//@Embeddable
 @Table(name = "trainingclasses")
 public class TrainingClass {
 
@@ -19,12 +19,15 @@ public class TrainingClass {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "training_class_name", nullable = false, length = 255)
+    @Column(name = "trainingclass_name", nullable = false, length = 255)
     private String name;
 
     private LocalDate startDate;
 
     private LocalDate endDate;
+
+    @ManyToOne
+    private Syllabus syllabus;
 
     public TrainingClass(String name, LocalDate startDate) {
         this.name = name;

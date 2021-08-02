@@ -32,6 +32,25 @@ Accept: application/json
 ### (delete TrainingClass)
 DELETE http://localhost:8080/api/trainingclasses/5
 
+### (add Syllabus)
+POST http://localhost:8080/api/trainingclasses/3
+/syllabuses
+Content-Type: application/json
+Accept: application/json
+
+{
+  "syllabusId": 1
+}
+
+### (add Syllabus)
+PUT http://localhost:8080/api/trainingclasses/4/syllabuses
+Content-Type: application/json
+Accept: application/json
+
+{
+  "syllabusId": 3
+}
+
 ### Validation (elvárt válasz: a validáció miatt elbukik a TrainingClass létrehozása)
 POST http://localhost:8080/api/trainingclasses
 Content-Type: application/json
@@ -83,4 +102,22 @@ Accept: application/json
     "startDate" : "2021-08-09",
     "endDate": "2021-06-07"
   }
+}
+
+### Validation (elvárt válasz: a validáció miatt elbukik a Syllabus hozzárendelése a TrainingClasshoz)
+POST http://localhost:8080/api/trainingclasses/4/syllabuses
+Content-Type: application/json
+Accept: application/json
+
+{
+  "syllabusId": null
+}
+
+### Validation (elvárt válasz: a validáció miatt elbukik a Syllabus hozzárendelése a TrainingClasshoz)
+PUT http://localhost:8080/api/trainingclasses/4/syllabuses
+Content-Type: application/json
+Accept: application/json
+
+{
+  "syllabusId": null
 }

@@ -114,49 +114,49 @@ public class StudentControllerIT {
     @Test
     void testCreateStudentWithNullName() {
 
-        Problem result = template.postForObject(
+        Problem expected = template.postForObject(
                 "/api/students",
                 new CreateStudentCommand(null, "kissj@gmail.com", "kissj"),
                 Problem.class
         );
 
-        assertEquals(Status.BAD_REQUEST, result.getStatus());
+        assertEquals(Status.BAD_REQUEST, expected.getStatus());
     }
 
     @Test
     void testCreateStudentWithEmptyName() {
 
-        Problem result = template.postForObject(
+        Problem expected = template.postForObject(
                 "/api/students",
                 new CreateStudentCommand("  ", "kissj@gmail.com", "kissj"),
                 Problem.class
         );
 
-        assertEquals(Status.BAD_REQUEST, result.getStatus());
+        assertEquals(Status.BAD_REQUEST, expected.getStatus());
     }
 
     @Test
     void testCreateStudentWithNullEmail() {
 
-        Problem result = template.postForObject(
+        Problem expected = template.postForObject(
                 "/api/students",
                 new CreateStudentCommand("Kiss József", null, "kissj"),
                 Problem.class
         );
 
-        assertEquals(Status.BAD_REQUEST, result.getStatus());
+        assertEquals(Status.BAD_REQUEST, expected.getStatus());
     }
 
     @Test
     void testCreateStudentWithEmptyEmail() {
 
-        Problem result = template.postForObject(
+        Problem expected = template.postForObject(
                 "/api/students",
                 new CreateStudentCommand("Kiss József", "  ", "kissj"),
                 Problem.class
         );
 
-        assertEquals(Status.BAD_REQUEST, result.getStatus());
+        assertEquals(Status.BAD_REQUEST, expected.getStatus());
     }
 
     @Test

@@ -2,6 +2,10 @@
 GET http://localhost:8080/api/syllabuses
 Accept: application/json
 
+### (list all Syllabuses by prefix)
+GET http://localhost:8080/api/syllabuses?prefix=alap
+Accept: application/json
+
 ### (find Syllabus by id)
 GET http://localhost:8080/api/syllabuses/2
 Accept: application/json

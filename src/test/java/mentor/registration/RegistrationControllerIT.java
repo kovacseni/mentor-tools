@@ -91,6 +91,53 @@ public class RegistrationControllerIT {
     }
 
     @Test
+    void testListRegistrationsByPrefix() {
+
+        List<RegistrationDto> expected = template.exchange("/api/registrations?prefix=nagy",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<RegistrationDto>>() {
+                })
+                .getBody();
+
+        assertEquals(2, expected.size());
+    }
+
+    @Test
+    void testListRegistrationsByStatus() {
+
+        long id = registration.getId();
+
+        template.put("/api/registrations/" + id, new UpdateRegistrationCommand(RegistrationStatus.EXITED));
+
+        List<RegistrationDto> expected = template.exchange("/api/registrations?status=EXITED",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<RegistrationDto>>() {
+                })
+                .getBody();
+
+        assertEquals(1, expected.size());
+    }
+
+    @Test
+    void testListRegistrationsByPrefixAndStatus() {
+
+        long id = registration.getId();
+
+        template.put("/api/registrations/" + id, new UpdateRegistrationCommand(RegistrationStatus.EXITED));
+
+        List<RegistrationDto> expected = template.exchange("/api/registrations?prefix=nagy&status=EXITED",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<RegistrationDto>>() {
+                })
+                .getBody();
+
+        assertEquals(0, expected.size());
+    }
+
+    @Test
     void testFindRegistrationById() {
 
         long id = registration.getId();

@@ -50,9 +50,26 @@ public class StudentControllerIT {
                 })
                 .getBody();
 
+        assertEquals(3, expected.size());
         assertThat(expected)
                 .extracting(StudentDto::getName)
                 .containsExactly("Kiss József", "Nagy Béla", "Szép Virág");
+    }
+
+    @Test
+    void testListStudentsByPrefix() {
+
+        List<StudentDto> expected = template.exchange("/api/students?prefix=nagy",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<StudentDto>>() {
+                })
+                .getBody();
+
+        assertEquals(1, expected.size());
+        assertThat(expected)
+                .extracting(StudentDto::getName)
+                .containsExactly("Nagy Béla");
     }
 
     @Test

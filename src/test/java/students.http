@@ -2,6 +2,10 @@
 GET http://localhost:8080/api/students
 Accept: application/json
 
+### (list all Students by prefix)
+GET http://localhost:8080/api/students?prefix=kiss
+Accept: application/json
+
 ### (find Student by id)
 GET http://localhost:8080/api/students/2
 Accept: application/json

@@ -42,9 +42,25 @@ public class SyllabusControllerIT {
                 })
                 .getBody();
 
+        assertEquals(3, expected.size());
         assertThat(expected)
                 .extracting(SyllabusDto::getName)
                 .containsExactly("Java SE", "JDBC", "JPA");
+    }
+
+    @Test
+    void testListSyllabusesByPrefix() {
+        List<SyllabusDto> expected = template.exchange("/api/syllabuses?prefix=java",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<SyllabusDto>>() {
+                })
+                .getBody();
+
+        assertEquals(1, expected.size());
+        assertThat(expected)
+                .extracting(SyllabusDto::getName)
+                .containsExactly("Java SE");
     }
 
     @Test

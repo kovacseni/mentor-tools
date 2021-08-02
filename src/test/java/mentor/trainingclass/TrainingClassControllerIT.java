@@ -58,6 +58,20 @@ public class TrainingClassControllerIT {
     }
 
     @Test
+    void testListTrainingClassesByPrefix() {
+
+        List<TrainingClassDto> expected = template.exchange("/api/trainingclasses?prefix=struk",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<TrainingClassDto>>() {})
+                .getBody();
+
+        assertThat(expected)
+                .extracting(TrainingClassDto::getName)
+                .containsExactly("Struktúraváltó alap", "Struktúraváltó haladó");
+    }
+
+    @Test
     void testFindTrainingClassById() {
 
         long id = trainingClass.getId();
@@ -97,7 +111,6 @@ public class TrainingClassControllerIT {
         long id = trainingClass.getId();
 
         template.delete("/api/trainingclasses/" + id);
-
 
         List<TrainingClassDto> expected = template.exchange("/api/trainingclasses",
                 HttpMethod.GET,

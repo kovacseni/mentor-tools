@@ -2,6 +2,10 @@
 GET http://localhost:8080/api/registrations
 Accept: application/json
 
+### (list all Registrations by prefix and status)
+GET http://localhost:8080/api/registrations?prefix=kiss&status=ACTIVE
+Accept: application/json
+
 ### (find Registration by id)
 GET http://localhost:8080/api/registrations/2
 Accept: application/json

@@ -2,6 +2,10 @@
 GET http://localhost:8080/api/trainingclasses
 Accept: application/json
 
+### (list all TrainingClasses by prefix)
+GET http://localhost:8080/api/trainingclasses?prefix=java
+Accept: application/json
+
 ### (find TrainingClass by id)
 GET http://localhost:8080/api/trainingclasses/2
 Accept: application/json
@@ -17,7 +21,7 @@ Accept: application/json
 }
 
 ### (update TrainingClass)
-PUT http://localhost:8080/api/trainingclasses/3
+PUT http://localhost:8080/api/trainingclasses/7
 Content-Type: application/json
 Accept: application/json
 

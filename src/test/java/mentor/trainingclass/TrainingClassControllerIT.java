@@ -1,7 +1,6 @@
 package mentor.trainingclass;
 
 import mentor.syllabus.CreateSyllabusCommand;
-import mentor.syllabus.Syllabus;
 import mentor.syllabus.SyllabusDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,13 +32,13 @@ public class TrainingClassControllerIT {
 
     @BeforeEach
     void setUp() {
-        template.postForObject("/api/trainingclass",
+        template.postForObject("/api/trainingclasses",
                 new CreateTrainingClassCommand("Újratervezés 2.0", LocalDate.of(2021, 8, 2)),
                 TrainingClassDto.class);
-        template.postForObject("/api/trainingclass",
+        template.postForObject("/api/trainingclasses",
                 new CreateTrainingClassCommand("Struktúraváltó alap", LocalDate.of(2021, 9, 30)),
                 TrainingClassDto.class);
-        trainingClass = template.postForObject("/api/trainingclass",
+        trainingClass = template.postForObject("/api/trainingclasses",
                 new CreateTrainingClassCommand("Struktúraváltó haladó", LocalDate.of(2021, 6, 7)),
                 TrainingClassDto.class);
     }
@@ -47,7 +46,7 @@ public class TrainingClassControllerIT {
     @Test
     void testListTrainingClasses() {
 
-        List<TrainingClassDto> expected = template.exchange("/api/trainingclass",
+        List<TrainingClassDto> expected = template.exchange("/api/trainingclasses",
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<TrainingClassDto>>() {})
@@ -63,7 +62,7 @@ public class TrainingClassControllerIT {
 
         long id = trainingClass.getId();
 
-        TrainingClassDto expected = template.exchange("/api/trainingclass/" + id,
+        TrainingClassDto expected = template.exchange("/api/trainingclasses/" + id,
                 HttpMethod.GET,
                 null,
                 TrainingClassDto.class)
@@ -78,10 +77,10 @@ public class TrainingClassControllerIT {
 
         long id = trainingClass.getId();
 
-        template.put("/api/trainingclass/" + id, new UpdateTrainingClassCommand("Struktúraváltó haladó Java",
+        template.put("/api/trainingclasses/" + id, new UpdateTrainingClassCommand("Struktúraváltó haladó Java",
                 new StartEndDates(LocalDate.of(2021, 6, 7), LocalDate.of(2021, 8, 9))));
 
-        TrainingClassDto expected = template.exchange("/api/trainingclass/" + id,
+        TrainingClassDto expected = template.exchange("/api/trainingclasses/" + id,
                 HttpMethod.GET,
                 null,
                 TrainingClassDto.class)
@@ -97,10 +96,10 @@ public class TrainingClassControllerIT {
 
         long id = trainingClass.getId();
 
-        template.delete("/api/trainingclass/" + id);
+        template.delete("/api/trainingclasses/" + id);
 
 
-        List<TrainingClassDto> expected = template.exchange("/api/trainingclass",
+        List<TrainingClassDto> expected = template.exchange("/api/trainingclasses",
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<TrainingClassDto>>() {})
@@ -114,7 +113,7 @@ public class TrainingClassControllerIT {
 
     @Test
     void testCreateTrainingClassWithNullName() {
-        Problem expected = template.postForObject("/api/trainingclass",
+        Problem expected = template.postForObject("/api/trainingclasses",
                 new CreateTrainingClassCommand(null, LocalDate.of(2021, 9, 30)),
                 Problem.class);
 
@@ -123,7 +122,7 @@ public class TrainingClassControllerIT {
 
     @Test
     void testCreateTrainingClassWithEmptyName() {
-        Problem expected = template.postForObject("/api/trainingclass",
+        Problem expected = template.postForObject("/api/trainingclasses",
                 new CreateTrainingClassCommand("  ", LocalDate.of(2021, 9, 30)),
                 Problem.class);
 
@@ -135,7 +134,7 @@ public class TrainingClassControllerIT {
 
         long id = trainingClass.getId();
 
-        Problem expected = template.exchange("/api/trainingclass/" + id,
+        Problem expected = template.exchange("/api/trainingclasses/" + id,
                 HttpMethod.PUT,
                 new HttpEntity<>(new UpdateTrainingClassCommand("Struktúraváltó haladó Java",
                         new StartEndDates(LocalDate.of(2021, 8, 9),
@@ -154,9 +153,67 @@ public class TrainingClassControllerIT {
         long syllabusId = syllabusDto.getId();
         long id = trainingClass.getId();
 
-        TrainingClassDto expected = template.postForObject("/api/trainingclass/" + id + "/syllabuses",
+        TrainingClassDto expected = template.postForObject("/api/trainingclasses/" + id + "/syllabuses",
                 new AddSyllabusCommand(syllabusId), TrainingClassDto.class);
 
         assertEquals("Java SE", expected.getSyllabus().getName());
+    }
+
+    @Test
+    void testChangeSyllabus() {
+
+        SyllabusDto syllabusDto = template.postForObject("/api/syllabuses", new CreateSyllabusCommand("Java SE"), SyllabusDto.class);
+
+        long syllabusId = syllabusDto.getId();
+        long id = trainingClass.getId();
+
+        template.postForObject("/api/trainingclasses/" + id + "/syllabuses",
+                new AddSyllabusCommand(syllabusId), TrainingClassDto.class);
+
+        SyllabusDto syllabusDtoChanged = template.postForObject("/api/syllabuses", new CreateSyllabusCommand("Java SE alapok"), SyllabusDto.class);
+
+        long syllabusChangedId = syllabusDtoChanged.getId();
+
+        template.put("/api/trainingclasses/" + id + "/syllabuses",
+                new AddSyllabusCommand(syllabusChangedId));
+
+        TrainingClassDto expected = template.exchange("/api/trainingclasses/" + id,
+                HttpMethod.GET,
+                null,
+                TrainingClassDto.class)
+                .getBody();
+
+        assertEquals("Java SE alapok", expected.getSyllabus().getName());
+    }
+
+    @Test
+    void testAddSyllabusWithNullId() {
+
+        long id = trainingClass.getId();
+
+        Problem expected = template.postForObject("/api/trainingclasses/" + id + "/syllabuses",
+                new AddSyllabusCommand(null), Problem.class);
+
+        assertEquals(Status.BAD_REQUEST, expected.getStatus());
+    }
+
+    @Test
+    void testChangeSyllabusWithNullId() {
+
+        SyllabusDto syllabusDto = template.postForObject("/api/syllabuses", new CreateSyllabusCommand("Java SE"), SyllabusDto.class);
+
+        long syllabusId = syllabusDto.getId();
+        long id = trainingClass.getId();
+
+        template.postForObject("/api/trainingclasses/" + id + "/syllabuses",
+                new AddSyllabusCommand(syllabusId), TrainingClassDto.class);
+
+        Problem expected = template.exchange("/api/trainingclasses/" + id + "/syllabuses",
+                HttpMethod.PUT,
+                new HttpEntity<>(new AddSyllabusCommand(null)),
+                Problem.class)
+                .getBody();
+
+        assertEquals(Status.BAD_REQUEST, expected.getStatus());
     }
 }

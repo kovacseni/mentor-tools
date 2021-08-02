@@ -2,6 +2,7 @@ package mentor.trainingclass;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import mentor.registration.*;
 import mentor.syllabus.Syllabus;
 import mentor.syllabus.SyllabusService;
 import org.modelmapper.ModelMapper;
@@ -23,6 +24,9 @@ public class TrainingClassService {
     private ModelMapper modelMapper;
 
     private TrainingClassRepository repository;
+
+    @Autowired
+    private RegistrationRepository registrationRepository;
 
     @Autowired
     private SyllabusService syllabusService;
@@ -58,8 +62,18 @@ public class TrainingClassService {
         return modelMapper.map(trainingClass, TrainingClassDto.class);
     }
 
+    @Transactional
     public void deleteTrainingClass(long id) {
+        deleteRegistrationsToThisTrainingClass(id);
         repository.deleteById(id);
+    }
+
+    private void deleteRegistrationsToThisTrainingClass(long id) {
+        List<Registration> registrationsToDelete = registrationRepository.findAll().stream()
+                .filter(registration -> registration.getTrainingClass().getId() == id)
+                .collect(Collectors.toList());
+
+      registrationRepository.deleteAll(registrationsToDelete);
     }
 
     @Transactional

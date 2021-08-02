@@ -30,7 +30,7 @@ Accept: application/json
 }
 
 ### (delete Student)
-DELETE http://localhost:8080/api/students/5
+DELETE http://localhost:8080/api/students/3
 
 ### Validation (elvárt válasz: a validáció miatt elbukik a Student létrehozása)
 POST http://localhost:8080/api/students

@@ -1,8 +1,11 @@
 package mentor.student;
 
 import lombok.AllArgsConstructor;
+import mentor.registration.Registration;
+import mentor.registration.RegistrationRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,6 +21,9 @@ public class StudentService {
     private ModelMapper modelMapper;
 
     private StudentRepository repository;
+
+    @Autowired
+    private RegistrationRepository registrationRepository;
 
     public List<StudentDto> listStudents(Optional<String> prefix) {
         Type targetListType = new TypeToken<List<StudentDto>>(){}.getType();
@@ -51,7 +57,17 @@ public class StudentService {
         return modelMapper.map(student, StudentDto.class);
     }
 
+    @Transactional
     public void deleteStudent(long id) {
+        deleteRegistrationsToThisStudent(id);
         repository.deleteById(id);
+    }
+
+    private void deleteRegistrationsToThisStudent(long id) {
+        List<Registration> registrationsToDelete = registrationRepository.findAll().stream()
+                .filter(registration -> registration.getStudent().getId() == id)
+                .collect(Collectors.toList());
+
+        registrationRepository.deleteAll(registrationsToDelete);
     }
 }

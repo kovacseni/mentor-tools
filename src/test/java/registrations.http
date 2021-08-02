@@ -7,12 +7,12 @@ GET http://localhost:8080/api/registrations/2
 Accept: application/json
 
 ### (create Registration, Student hozzárendelése évfolyamhoz, a RegistrationStatus automatikusan ACTIVE lesz)
-POST http://localhost:8080/api/trainingclasses/2/registrations
+POST http://localhost:8080/api/trainingclasses/4/registrations
 Content-Type: application/json
 Accept: application/json
 
 {
-  "studentId": 1
+  "studentId": 4
 }
 
 ### (TrainingClass id alapján visszaadja az évfolyamra beiratkozottakat)

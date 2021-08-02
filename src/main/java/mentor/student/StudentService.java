@@ -29,7 +29,7 @@ public class StudentService {
 
     public StudentDto findStudentById(long id) {
         Student student = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Student with id: " + id + "not found."));
+                .orElseThrow(() -> new IllegalArgumentException("Student with id: " + id + " not found."));
         return modelMapper.map(student, StudentDto.class);
     }
 
@@ -42,7 +42,7 @@ public class StudentService {
     @Transactional
     public StudentDto updateStudent(long id, UpdateStudentCommand command) {
         Student student = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Student with id: " + id + "not found."));
+                .orElseThrow(() -> new IllegalArgumentException("Student with id: " + id + " not found."));
         student.setName(command.getName());
         student.setEmail(command.getEmail());
         student.setGitHub(command.getGitHub());

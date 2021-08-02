@@ -45,13 +45,13 @@ public class RegistrationService {
 
     public RegistrationDto findRegistrationById(long id) {
         Registration registration = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Registration with id: " + id + "not found."));
+                .orElseThrow(() -> new IllegalArgumentException("Registration with id: " + id + " not found."));
         return modelMapper.map(registration, RegistrationDto.class);
     }
 
-    public RegistrationDto createRegistration(long studentId, CreateRegistrationCommand command) {
-        Student student = modelMapper.map(studentService.findStudentById(studentId), Student.class);
-        TrainingClass trainingClass = modelMapper.map(trainingClassService.findTrainingClassById(command.getTrainingClassId()), TrainingClass.class);
+    public RegistrationDto createRegistration(long trainingClassId, CreateRegistrationCommand command) {
+        TrainingClass trainingClass = modelMapper.map(trainingClassService.findTrainingClassById(trainingClassId), TrainingClass.class);
+        Student student = modelMapper.map(studentService.findStudentById(command.getStudentId()), Student.class);
 
         Registration registration = new Registration(trainingClass, student, RegistrationStatus.ACTIVE);
         repository.save(registration);
@@ -103,7 +103,7 @@ public class RegistrationService {
     @Transactional
     public RegistrationDto updateRegistration(long id, UpdateRegistrationCommand command) {
         Registration registration = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Registration with id: " + id + "not found."));
+                .orElseThrow(() -> new IllegalArgumentException("Registration with id: " + id + " not found."));
         if (registration.getStatus() == RegistrationStatus.ACTIVE) {
             registration.setStatus(command.getStatus());
         } else if (registration.getStatus() == RegistrationStatus.EXIT_IN_PROGRESS

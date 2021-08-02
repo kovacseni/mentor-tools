@@ -3,5 +3,4 @@ create table trainingclasses (id bigint not null auto_increment,
                               start_date date,
                               end_date date,
                               syllabus_id bigint,
-                              syllabus_name varchar(255),
                               primary key (id));

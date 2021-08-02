@@ -1,12 +1,5 @@
 create table registrations (id bigint not null auto_increment,
                             trainingclass_id bigint not null,
-                            trainingclass_name varchar(255) not null,
-                            start_date date,
-                            end_date date,
                             student_id bigint not null,
-                            student_name varchar(255) not null,
-                            email varchar(255) not null,
-                            GitHub_profile varchar(255),
-                            comment varchar(1000),
                             registration_status varchar(20) not null,
                             primary key (id));

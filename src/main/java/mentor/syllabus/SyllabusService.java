@@ -29,7 +29,7 @@ public class SyllabusService {
 
     public SyllabusDto findSyllabusById(long id) {
         Syllabus syllabus = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Syllabus with id: " + id + "not found."));
+                .orElseThrow(() -> new IllegalArgumentException("Syllabus with id: " + id + " not found."));
         return modelMapper.map(syllabus, SyllabusDto.class);
     }
 
@@ -42,7 +42,7 @@ public class SyllabusService {
     @Transactional
     public SyllabusDto updateSyllabus(long id, UpdateSyllabusCommand command) {
         Syllabus syllabus = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Syllabus with id: " + id + "not found."));
+                .orElseThrow(() -> new IllegalArgumentException("Syllabus with id: " + id + " not found."));
         syllabus.setName(command.getName());
 
         return modelMapper.map(syllabus, SyllabusDto.class);

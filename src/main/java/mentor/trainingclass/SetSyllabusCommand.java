@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddSyllabusCommand {
+public class SetSyllabusCommand {
 
     @NotNull
     private Long syllabusId;

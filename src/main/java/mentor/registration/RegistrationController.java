@@ -25,10 +25,10 @@ public class RegistrationController {
         return service.findRegistrationById(id);
     }
 
-    @PostMapping("/api/trainingclasses/{studentId}/registrations")
+    @PostMapping("/api/trainingclasses/{trainingClassId}/registrations")
     @ResponseStatus(HttpStatus.CREATED)
-    public RegistrationDto createRegistration(@PathVariable("studentId") long studentId, @Valid @RequestBody CreateRegistrationCommand command) {
-        return service.createRegistration(studentId, command);
+    public RegistrationDto createRegistration(@PathVariable("trainingClassId") long trainingClassId, @Valid @RequestBody CreateRegistrationCommand command) {
+        return service.createRegistration(trainingClassId, command);
     }
 
     @GetMapping("/api/trainingclasses/{id}/registrations")

@@ -146,36 +146,15 @@ public class TrainingClassControllerIT {
     }
 
     @Test
-    void testAddSyllabus() {
+    void testSetSyllabus() {
 
         SyllabusDto syllabusDto = template.postForObject("/api/syllabuses", new CreateSyllabusCommand("Java SE"), SyllabusDto.class);
 
         long syllabusId = syllabusDto.getId();
         long id = trainingClass.getId();
-
-        TrainingClassDto expected = template.postForObject("/api/trainingclasses/" + id + "/syllabuses",
-                new AddSyllabusCommand(syllabusId), TrainingClassDto.class);
-
-        assertEquals("Java SE", expected.getSyllabus().getName());
-    }
-
-    @Test
-    void testChangeSyllabus() {
-
-        SyllabusDto syllabusDto = template.postForObject("/api/syllabuses", new CreateSyllabusCommand("Java SE"), SyllabusDto.class);
-
-        long syllabusId = syllabusDto.getId();
-        long id = trainingClass.getId();
-
-        template.postForObject("/api/trainingclasses/" + id + "/syllabuses",
-                new AddSyllabusCommand(syllabusId), TrainingClassDto.class);
-
-        SyllabusDto syllabusDtoChanged = template.postForObject("/api/syllabuses", new CreateSyllabusCommand("Java SE alapok"), SyllabusDto.class);
-
-        long syllabusChangedId = syllabusDtoChanged.getId();
 
         template.put("/api/trainingclasses/" + id + "/syllabuses",
-                new AddSyllabusCommand(syllabusChangedId));
+                new SetSyllabusCommand(syllabusId));
 
         TrainingClassDto expected = template.exchange("/api/trainingclasses/" + id,
                 HttpMethod.GET,
@@ -183,34 +162,20 @@ public class TrainingClassControllerIT {
                 TrainingClassDto.class)
                 .getBody();
 
-        assertEquals("Java SE alapok", expected.getSyllabus().getName());
+        assertEquals("Java SE", expected.getSyllabus().getName());
     }
 
     @Test
-    void testAddSyllabusWithNullId() {
-
-        long id = trainingClass.getId();
-
-        Problem expected = template.postForObject("/api/trainingclasses/" + id + "/syllabuses",
-                new AddSyllabusCommand(null), Problem.class);
-
-        assertEquals(Status.BAD_REQUEST, expected.getStatus());
-    }
-
-    @Test
-    void testChangeSyllabusWithNullId() {
+    void testSetSyllabusWithNullId() {
 
         SyllabusDto syllabusDto = template.postForObject("/api/syllabuses", new CreateSyllabusCommand("Java SE"), SyllabusDto.class);
 
         long syllabusId = syllabusDto.getId();
         long id = trainingClass.getId();
 
-        template.postForObject("/api/trainingclasses/" + id + "/syllabuses",
-                new AddSyllabusCommand(syllabusId), TrainingClassDto.class);
-
         Problem expected = template.exchange("/api/trainingclasses/" + id + "/syllabuses",
                 HttpMethod.PUT,
-                new HttpEntity<>(new AddSyllabusCommand(null)),
+                new HttpEntity<>(new SetSyllabusCommand(null)),
                 Problem.class)
                 .getBody();
 

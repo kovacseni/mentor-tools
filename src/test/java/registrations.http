@@ -7,12 +7,12 @@ GET http://localhost:8080/api/registrations/2
 Accept: application/json
 
 ### (create Registration, Student hozzárendelése évfolyamhoz, a RegistrationStatus automatikusan ACTIVE lesz)
-POST http://localhost:8080/api/trainingclasses/5/registrations
+POST http://localhost:8080/api/trainingclasses/2/registrations
 Content-Type: application/json
 Accept: application/json
 
 {
-  "trainingClassId": 3
+  "studentId": 1
 }
 
 ### (TrainingClass id alapján visszaadja az évfolyamra beiratkozottakat)
@@ -20,11 +20,11 @@ GET http://localhost:8080/api/trainingclasses/2/registrations
 Accept: application/json
 
 ### (Student id alapján visszaadja egy résztvevő beiratkozásait)
-GET http://localhost:8080/api/students/5/registrations
+GET http://localhost:8080/api/students/3/registrations
 Accept: application/json
 
 ### (update Registration, a RegistrationStatus változtatása, ha a 44. sorban található request után futtatjuk le, akkor nem jön létre a változtatás)
-PUT http://localhost:8080/api/registrations/5
+PUT http://localhost:8080/api/registrations/2
 Content-Type: application/json
 Accept: application/json
 
@@ -33,7 +33,7 @@ Accept: application/json
 }
 
 ### (update Registration, a RegistrationStatus változtatása)
-PUT http://localhost:8080/api/registrations/5
+PUT http://localhost:8080/api/registrations/3
 Content-Type: application/json
 Accept: application/json
 
@@ -45,7 +45,7 @@ Accept: application/json
 DELETE http://localhost:8080/api/registrations/5
 
 ### (ezt a requestet a 35. vagy a 44. sorban található request után kell lefuttatni, elvárt válasz: nem keletkezik hiba, de nem jön létre a változtatás)
-PUT http://localhost:8080/api/registrations/5
+PUT http://localhost:8080/api/registrations/2
 Content-Type: application/json
 Accept: application/json
 

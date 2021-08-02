@@ -20,11 +20,11 @@ public class Registration {
     private Long id;
 
     @OneToOne
-    @AttributeOverride(name = "id", column = @Column(name = "trainingclass_id"))
+    @JoinColumn(name = "trainingclass_id")
     private TrainingClass trainingClass;
 
     @OneToOne
-    @AttributeOverride(name = "id", column = @Column(name = "student_id"))
+    @JoinColumn(name = "student_id")
     private Student student;
 
     @Enumerated(value = EnumType.STRING)

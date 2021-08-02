@@ -37,7 +37,7 @@ public class TrainingClassService {
 
     public TrainingClassDto findTrainingClassById(long id) {
         TrainingClass trainingClass = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Training Class with id: " + id + "not found."));
+                .orElseThrow(() -> new IllegalArgumentException("Training Class with id: " + id + " not found."));
         return modelMapper.map(trainingClass, TrainingClassDto.class);
     }
 
@@ -50,7 +50,7 @@ public class TrainingClassService {
     @Transactional
     public TrainingClassDto updateTrainingClass(long id, UpdateTrainingClassCommand command) {
         TrainingClass trainingClass = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Training Class with id: " + id + "not found."));
+                .orElseThrow(() -> new IllegalArgumentException("Training Class with id: " + id + " not found."));
         trainingClass.setName(command.getName());
         trainingClass.setStartDate(command.getDates().getStartDate());
         trainingClass.setEndDate(command.getDates().getEndDate());
@@ -63,12 +63,11 @@ public class TrainingClassService {
     }
 
     @Transactional
-    public TrainingClassDto addSyllabus(long id, AddSyllabusCommand command) {
+    public TrainingClassDto setSyllabus(long id, SetSyllabusCommand command) {
         Syllabus syllabus = modelMapper.map(syllabusService.findSyllabusById(command.getSyllabusId()), Syllabus.class);
         TrainingClass trainingClass = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Training Class with id: " + id + "not found."));
+                .orElseThrow(() -> new IllegalArgumentException("Training Class with id: " + id + " not found."));
         trainingClass.setSyllabus(syllabus);
-        syllabus.addTrainingClass(trainingClass);
 
         return modelMapper.map(trainingClass, TrainingClassDto.class);
     }

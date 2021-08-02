@@ -12,5 +12,5 @@ import javax.validation.constraints.NotNull;
 public class CreateRegistrationCommand {
 
     @NotNull
-    private Long trainingClassId;
+    private Long studentId;
 }

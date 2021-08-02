@@ -52,3 +52,12 @@ Accept: application/json
 {
   "status": "ACTIVE"
 }
+
+### Validation (elvárt válasz: a validáció miatt elbukik a Registration létrehozása)
+POST http://localhost:8080/api/trainingclasses/2/registrations
+Content-Type: application/json
+Accept: application/json
+
+{
+  "studentId": null
+}

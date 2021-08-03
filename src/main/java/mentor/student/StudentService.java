@@ -51,8 +51,12 @@ public class StudentService {
                 .orElseThrow(() -> new IllegalArgumentException("Student with id: " + id + " not found."));
         student.setName(command.getName());
         student.setEmail(command.getEmail());
-        student.setGitHub(command.getGitHub());
-        student.setComment(command.getComment());
+        if (command.getGitHub() != null) {
+            student.setGitHub(command.getGitHub());
+        }
+        if (command.getComment() != null) {
+            student.setComment(command.getComment());
+        }
 
         return modelMapper.map(student, StudentDto.class);
     }

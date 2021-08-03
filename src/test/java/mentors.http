@@ -1,0 +1,130 @@
+### (list all Mentors)
+GET http://localhost:8080/api/mentors
+Accept: application/json
+
+### (list all Mentors by prefix)
+GET http://localhost:8080/api/mentors?prefix=train
+Accept: application/json
+
+### (find Mentor by id)
+GET http://localhost:8080/api/mentors/2
+Accept: application/json
+
+### (create Mentor)
+POST http://localhost:8080/api/mentors
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Mentor Trainer",
+  "email": "trainer.mentor@training.com"
+}
+
+### (update Mentor)
+PUT http://localhost:8080/api/mentors/3
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Mentor Trainer Instructor",
+  "email": "mentort@gmail.com",
+  "position": "JUNIOR_OKTATO"
+}
+
+### (delete Mentor)
+DELETE http://localhost:8080/api/mentors/3
+
+### Validation (elvárt válasz: a validáció miatt elbukik a Mentor létrehozása)
+POST http://localhost:8080/api/mentors
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": null,
+  "email": "trainer.mentor@training.com"
+}
+
+### Validation (elvárt válasz: a validáció miatt elbukik a Mentor létrehozása)
+POST http://localhost:8080/api/mentors
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "   ",
+  "email": "trainer.mentor@training.com"
+}
+
+### Validation (elvárt válasz: a validáció miatt elbukik a Mentor létrehozása)
+POST http://localhost:8080/api/mentors
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Mentor Trainer",
+  "email": null
+}
+
+### Validation (elvárt válasz: a validáció miatt elbukik a Mentor létrehozása)
+POST http://localhost:8080/api/mentors
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Mentor Trainer",
+  "email": "  "
+}
+
+### Validation (elvárt válasz: a validáció miatt elbukik a Mentor módosítása)
+PUT http://localhost:8080/api/mentors/3
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": null,
+  "email": "trainer.mentor@training.com",
+  "position": "JUNIOR_OKTATO"
+}
+
+### Validation (elvárt válasz: a validáció miatt elbukik a Mentor módosítása)
+PUT http://localhost:8080/api/mentors/3
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "   ",
+  "email": "trainer.mentor@training.com",
+  "position": "JUNIOR_OKTATO"
+}
+
+### Validation (elvárt válasz: a validáció miatt elbukik a Mentor módosítása)
+PUT http://localhost:8080/api/mentors/3
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Mentor Trainer",
+  "email": null,
+  "position": "JUNIOR_OKTATO"
+}
+
+### Validation (elvárt válasz: a validáció miatt elbukik a Mentor módosítása)
+PUT http://localhost:8080/api/mentors/3
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Mentor Trainer",
+  "email": "   ",
+  "position": "JUNIOR_OKTATO"
+}
+
+### Validation (elvárt válasz: a Mentor adatai módosulnak)
+PUT http://localhost:8080/api/mentors/2
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Mentor Trainer Instructor",
+  "email": "mentort@gmail.com",
+  "position": null
+}

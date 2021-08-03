@@ -22,7 +22,7 @@ public class SyllabusService {
     public List<SyllabusDto> listSyllabuses(Optional<String> prefix) {
         Type targetListType = new TypeToken<List<SyllabusDto>>() {}.getType();
         List<Syllabus> filteredSyllabuses = repository.findAll().stream()
-                .filter(student -> prefix.isEmpty() || student.getName().toLowerCase().contains(prefix.get().toLowerCase()))
+                .filter(syllabus -> prefix.isEmpty() || syllabus.getName().toLowerCase().contains(prefix.get().toLowerCase()))
                 .collect(Collectors.toList());
         return modelMapper.map(filteredSyllabuses, targetListType);
     }
